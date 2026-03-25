@@ -1,0 +1,4 @@
+name: dev
+variables:
+  - name: host-backend-nest
+    value: https://platform-backend-dev.orbitai.fun
