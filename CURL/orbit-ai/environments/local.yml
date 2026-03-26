@@ -1,0 +1,6 @@
+name: local
+variables:
+  - name: host-backend-nest
+    value: http://localhost:3000
+  - name: host-gateway
+    value: http://localhost:8080

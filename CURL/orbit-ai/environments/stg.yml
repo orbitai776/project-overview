@@ -2,3 +2,5 @@ name: stg
 variables:
   - name: host-backend-nest
     value: https://platform-backend-stg.orbitai.fun
+  - name: host-gateway
+    value: https://platform-gateway-stg.orbitai.fun

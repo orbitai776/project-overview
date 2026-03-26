@@ -2,3 +2,5 @@ name: prod
 variables:
   - name: host-backend-nest
     value: https://platform-backend.orbitai.fun
+  - name: host-gateway
+    value: https://platform-gateway.orbitai.fun
