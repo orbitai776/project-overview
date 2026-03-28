@@ -1,0 +1,21 @@
+info:
+  name: auth
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/auth"
+  body:
+    type: json
+    data: |-
+      {
+        "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjM3MzAwNzY5YTA3ZTA1MTE2ZjdlNTEzOGZhOTA5MzY4NWVlYmMyNDAiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhhbmggVHJhbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NMcnZxUHZ5X2haeFA2dXF3UUd0NWR5eGJaSGkzZUFnNWxmTklpLVpuSGQ1ajB2NWc9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb3JiaXRhaS1kZXYtNDYyNDUiLCJhdWQiOiJvcmJpdGFpLWRldi00NjI0NSIsImF1dGhfdGltZSI6MTc3NDYzODE3MywidXNlcl9pZCI6IjRkMGg0VWRCUk1WMkFEUkVFb0laZUR3MkMyYTIiLCJzdWIiOiI0ZDBoNFVkQlJNVjJBRFJFRW9JWmVEdzJDMmEyIiwiaWF0IjoxNzc0NjM4MTczLCJleHAiOjE3NzQ2NDE3NzMsImVtYWlsIjoidHJhbnRoYW5oMDAwMDE5OTJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMTIwNTE4MDcyNDExODAwOTIwNTQiXSwiZW1haWwiOlsidHJhbnRoYW5oMDAwMDE5OTJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.hZy5aY_pYZ2s3kBsBUwfmMAZj-_gW-u0yfhkJt-KViGmg0CuzadfgZRbpUoqRP4x9mTsdE8-sfLlQDE545l36mYyHb_NUXuL16Ls41icF6EZA45HdKgIL5SAy9R7z9Un-Y3smwQicK636zzmulWRLp2By1DbHzALNGB0ahCru5zkqptkYia_5P57YzYbQVAYNxlmMWkgMROlmOjxdc2tNUuX6P8pENLi4qxxLadfDlc__4zXqmWnhvbCnU7CFpmQJ71ko9ONRPY4ftuw2wZv6wSYosHdvrSIoOD-gUsocZulJq0Fw2pFqNMZYH16XH-3ZWuFbmWCd5RxvQxpVzq7jA"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
