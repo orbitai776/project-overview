@@ -280,7 +280,7 @@ sudo systemctl reload nginx # load cấu hình nginx`
 |  | Gateway | [https://platform-gateway-dev.orbitai.fun/api/health/status](https://platform-gateway-dev.orbitai.fun/api/health/status) |
 |  | Service Backend NestJS | [https://platform-backend-dev.orbitai.fun/](https://platform-backend-dev.orbitai.fun/) |
 |  | Services AI Multi-turn Slot Filling |  |
-|  | Service Backend PHP |  |
+|  | Service Backend PHP |  | [https://platform-backend-php-dev.orbitai.fun/]
 |  | Service Backend Python |  |
 |  | Service Backend NetCore |  |
 |  | Service Backend Java |  |
@@ -289,7 +289,7 @@ sudo systemctl reload nginx # load cấu hình nginx`
 |  | Gateway | [https://platform-gateway-stg.orbitai.fun/api/health/status](https://platform-gateway-stg.orbitai.fun/api/health/status) |
 |  | Service Backend NestJS | [https://platform-backend-stg.orbitai.fun/](https://platform-backend-stg.orbitai.fun/) |
 |  | Services AI Multi-turn Slot Filling |  |
-|  | Service Backend PHP |  |
+|  | Service Backend PHP |  | [https://platform-backend-php-stg.orbitai.fun/]
 |  | Service Backend Python |  |
 |  | Service Backend NetCore |  |
 |  | Service Backend Java |  |
