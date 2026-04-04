@@ -1,0 +1,136 @@
+# 📋 Release Note – Sprint 02 (05 April 2026)
+
+## 🎯 Mục tiêu Sprint
+
+Hoàn thành CRUD cơ bản bằng **mock data** cho toàn bộ các service backend, bao gồm:
+**Admin Service**, **User Service (Public)**, **Partner Service** và tính năng **AI Multi-turn Slot Filling** tư vấn tour du lịch.
+
+---
+
+## 🛠️ TECH STACK
+
+- **Runtime:** Node.js / TypeScript/.NET /PHP
+- **Framework:** NestJS (module – controller – service – repository)
+- **Data:** Mock data tích hợp sẵn (kết nối database thật)
+- **Auth:** Firebase Auth (verify ID Token / JWT)
+
+---
+
+## 🗄️ Thiết kế DB & Kiến trúc Service
+
+- Hoàn thiện schema database cho các module: **User**, **Partner**, **Admin**, **Organization**, **Token Transactions**, **AI Services**, **Chat Sessions**.
+
+---
+
+## 👤 1. Admin Service
+
+> Phục vụ toàn bộ API cho **Frontend Admin Managed**.
+
+### 1.1 Auth – Login
+
+| Method | Endpoint            | Mô tả                                      |
+| ------ | ------------------- | ------------------------------------------ |
+| POST   | `/admin/auth/login` | Đăng nhập, verify jwt , trả về accessToken |
+
+### 1.2 Dashboard
+
+| Method | Endpoint                       | Mô tả                                                                                                                                                                               |
+| ------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/v1/admin/dashboard/services` | Tổng hợp số liệu dashboard cho admin: user stats, partner stats, gateway health. Kiểm tra Redis cache trước, nếu cache miss thì gọi các nguồn nội bộ, aggregate dữ liệu rồi trả về. |
+
+### 1.3 Managed – Users
+
+| Method | Endpoint             | Mô tả                                   |
+| ------ | -------------------- | --------------------------------------- |
+| GET    | `/v1/admin/users`    | Lấy danh sách user (pagination, filter) |
+| GET    | `v1/admin/users/:id` | Lấy chi tiết user                       |
+| PATCH  | `v1/admin/users/:id` | Cập nhật thông tin / status user        |
+
+### 1.4 Managed – Partners
+
+| Method | Endpoint                              | Mô tả                                  |
+| ------ | ------------------------------------- | -------------------------------------- |
+| GET    | `v1/admin/partners`                   | Lấy danh sách partner (pagination)     |
+| GET    | `v1/admin/partners/:id`               | Lấy chi tiết partner                   |
+| PATCH  | `v1/admin/partners/:id`               | Cập nhật status partner                |
+| GET    | `v1/admin/partners/:id/organization`  | Xem thông tin tổ chức của partner      |
+| GET    | `v1/admin/partners/:id/tokens`        | Xem lịch sử & số dư token của partner  |
+| POST   | `v1/admin/partners/:id/tokens/adjust` | Điều chỉnh token thủ công (thêm / trừ) |
+
+---
+
+## 🌐 2. User Service
+
+> Phục vụ toàn bộ API cho **Frontend Public Page**.
+
+### 2.1 Auth & Profile
+
+| Method | Endpoint          | Mô tả                                                           |
+| ------ | ----------------- | --------------------------------------------------------------- |
+| POST   | `v1/auth/login`   | Đăng nhập, verify Firebase ID Token, auto-register nếu user mới |
+| GET    | `v1/user/profile` | Lấy thông tin profile của user hiện tại                         |
+| PATCH  | `v1/user/profile` | Cập nhật thông tin profile (name, avatar, phone)                |
+
+### 2.2 AI Chat Service Public
+
+> Giao tiếp nội bộ với **AI Multi-turn Slot Filling** và **RAG Service** qua Message Queue.
+
+| Method | Endpoint                                             | Mô tả                                                                                                                                                              |
+| ------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| POST   | `v1/chat/conversations`                              | Khởi tạo phiên chat: Tạo một phiên hội thoại mới khi user bắt đầu tương tác với AI của một doanh nghiệp (Partner).                                                 |
+| GET    | `v1/api/chat/conversations`                          | Lấy danh sách phiên chat: Lấy lịch sử các cuộc trò chuyện của user đang đăng nhập để hiển thị ra thanh Sidebar.                                                    |
+| GET    | `/api/chat/conversations/{conversation_id}/messages` | Lấy chi tiết tin nhắn: Lấy toàn bộ bong bóng chat trong một phiên cụ thể. Dùng khi user F5 trang hoặc bấm vào lịch sử.                                             |
+| POST   | `/api/chat/conversations/{conversation_id}/messages` | Gửi tin nhắn : Nhận tin nhắn, lấy ngữ cảnh từ DB, check Redis quota, gọi AI Service (Slot filling), trừ token, query dữ liệu Postgres (nếu AI báo chốt xong slot). |
+| DELETE | `v1/chat/session/:sessionId`                         | Xoá / reset session hội thoại                                                                                                                                      |
+
+---
+
+## 🤝 3. Partner Service
+
+> Phục vụ toàn bộ API cho **Frontend Partner Managed**.
+
+### 3.1 Auth – Login
+
+| Method | Endpoint                 | Mô tả                                                                 |
+| ------ | ------------------------ | --------------------------------------------------------------------- |
+| POST   | `/v1/partner/auth/login` | Xác thực Firebase ID Token của Partner và trả về thông tin đăng nhập. |
+
+### 3.2 Profile – Payment Topup
+
+### 3.2.1 Profile – Payment Topup
+
+| Method | Endpoint                            | Mô tả                                                         |
+| ------ | ----------------------------------- | ------------------------------------------------------------- |
+| POST   | `/v1/partner/billing/payments`      | Tạo giao dịch nạp tiền, lấy link thanh toán.                  |
+| GET    | `/v1/partner/billing/payments/list` | Lấy lịch sử các lần nạp tiền của Partner.                     |
+| PATCH  | `/v1/webhooks/payments/callback`    | Webhook nhận thông báo thanh toán thành công từ PayOS/Stripe. |
+
+### 3.2.2 Profile – Token billing
+
+| Method | Endpoint                             | Mô tả                                           |
+| ------ | ------------------------------------ | ----------------------------------------------- |
+| GET    | `/v1/partner/billing/balance`        | Lấy số dư Token hiện tại của Partner.           |
+| GET    | `/v1/partner/billing/token-usage`    | Xem lịch sử tiêu hao Token (thống kê trừ tiền). |
+| POST   | `/internal/v1/billing/tokens/deduct` | Trừ Token sau mỗi lần AI trả lời xong.          |
+
+### 3.3 Setup Organization
+
+| Method | Endpoint                   | Mô tả                                                      |
+| ------ | -------------------------- | ---------------------------------------------------------- |
+| GET    | `/v1/partner/organization` | Lấy thông tin chi tiết của tổ chức/đối tác hiện tại.       |
+| POST   | `/v1/partner/organization` | Tạo mới thông tin tổ chức cho Partner hiện tại.            |
+| PATCH  | `/v1/partner/organization` | Cập nhật thông tin tổ chức (tên, mô tả, hotline, địa chỉ). |
+
+### 3.4. AI Data services
+
+| Method | Endpoint                      | Mô tả                                       |
+| ------ | ----------------------------- | ------------------------------------------- |
+| GET    | `/v1/partner/ai-services`     | hiển thị các dịch vụ AI mà partner đã setup |
+| POST   | `/v1/partner/ai-services`     | setup dịch vụ AI                            |
+| PATCH  | `/v1/partner/ai-services/:id` | cập nhật lại dịch vụ AI                     |
+| DELETE | `/v1/partner/ai-services/:id` | hủy dịch vụ AI                              |
+
+## Flow các chức năng của Sprint 02
+
+[Google Drive - Flow Sprint 02](https://drive.google.com/drive/folders/1vkFRh04kyfWUEHnmQwFgwvnsQ2iXAX3Q?usp=sharing)
+[Sheet](https://docs.google.com/spreadsheets/d/1SkVHhfE82fxGhgV5SkFKw9ENdsJ11RkJ8p2Xvhrp2I4/edit?usp=sharing)
