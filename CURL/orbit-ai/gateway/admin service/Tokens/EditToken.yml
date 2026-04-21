@@ -1,0 +1,25 @@
+info:
+  name: EditToken
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/admin/partners/e4a926ad-d5c6-471a-917f-d0126d1730c3/tokens/adjust"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-admin}}"
+  body:
+    type: json
+    data: |-
+      {
+        "amount":10000,
+        "reason": "fewfew"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

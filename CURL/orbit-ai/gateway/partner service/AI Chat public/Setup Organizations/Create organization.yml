@@ -1,0 +1,26 @@
+info:
+  name: Create organization
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/partner/organization"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-user}}"
+  body:
+    type: json
+    data: |-
+      {"name": "Công ty TNHH Cổng Việt",
+       "email": "congviet123@gmail.com",
+       "phone": "0943656554",
+       "address": "180 cao lỗ, Phạm Hùng, Phương Chánh Hưng, Tp Hồ Chí Minh"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

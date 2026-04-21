@@ -1,0 +1,18 @@
+info:
+  name: dashboard
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{host-gateway}}/v1/api/admin/dashboard/services"
+  headers:
+    - name: Authorization
+      value: Bearer {{token-admin}}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

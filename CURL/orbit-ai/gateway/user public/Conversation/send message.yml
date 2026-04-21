@@ -1,0 +1,24 @@
+info:
+  name: send message
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/chat/conversations/69e46764ce2fec332b358cd7/messages"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-user}}"
+  body:
+    type: json
+    data: |-
+      {
+        "content": "0 "
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

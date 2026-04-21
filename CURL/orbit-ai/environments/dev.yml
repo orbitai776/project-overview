@@ -4,3 +4,7 @@ variables:
     value: https://platform-backend-dev.orbitai.fun
   - name: host-gateway
     value: https://platform-gateway-dev.orbitai.fun
+  - name: host-gateway-local
+    value: http://localhost:8080
+  - name: host-backend-netcore
+    value: https://platform-backend-netcore-dev.orbitai.fun

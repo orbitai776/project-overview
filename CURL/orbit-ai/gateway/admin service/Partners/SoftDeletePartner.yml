@@ -1,0 +1,18 @@
+info:
+  name: SoftDeletePartner
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{host-gateway}}/v1/api/admin/partners/e4a926ad-d5c6-471a-917f-d0126d1730c3"
+  headers:
+    - name: Authorization
+      value: Bearer {{token_admin}}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

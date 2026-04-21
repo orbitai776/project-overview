@@ -1,0 +1,25 @@
+info:
+  name: setup ai-service
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/partner/ai-services"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-user}}"
+  body:
+    type: json
+    data: |-
+      {
+        "service_id": "072ce17e-dc45-4dd3-aea4-32e67f23db22",
+        "name": "travel tour Phu QUoc"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
