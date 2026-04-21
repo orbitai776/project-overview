@@ -1,0 +1,18 @@
+info:
+  name: getAllPartners
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{host-gateway}}/v1/api/admin/partners"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-admin}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

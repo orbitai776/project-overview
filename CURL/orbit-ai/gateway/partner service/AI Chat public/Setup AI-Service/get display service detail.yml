@@ -1,0 +1,21 @@
+info:
+  name: get display service detail
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{host-gateway}}/v1/api/partner/ai-services/44bf64e7-e4e6-4486-baeb-531a7da1967a"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-user}}"
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,24 @@
+info:
+  name: create conversation
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host-gateway}}/v1/api/chat/conversations"
+  headers:
+    - name: Authorization
+      value: " Bearer {{token-user}}"
+  body:
+    type: json
+    data: |-
+      {
+        "partner_service_id": "5c68b901-a625-4628-b786-6451eb821954"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
